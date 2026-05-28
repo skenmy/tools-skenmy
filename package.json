@@ -1,0 +1,17 @@
+{
+  "name": "tools-skenmy",
+  "version": "0.1.0",
+  "description": "tools.skenmy.com — landing page + Twitch OAuth forward-auth for *.skenmy.com admin panels",
+  "main": "server/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.6.0",
+    "cookie": "^1.0.1",
+    "express": "^4.21.0",
+    "markdown-it": "^14.1.0"
+  }
+}

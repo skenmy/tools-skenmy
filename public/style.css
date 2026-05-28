@@ -1,0 +1,90 @@
+:root {
+  --bg: #0a0b0e;
+  --bg2: #0e1014;
+  --panel: #14171d;
+  --panel2: #181c24;
+  --ink: #ebedf1;
+  --ink-soft: #c5cad2;
+  --dim: #7a808b;
+  --dimmer: #4a4e58;
+  --line: #21252e;
+  --line-soft: #181b22;
+  --accent: #34d399;
+  --hot: #f87171;
+  --warn: #fbbf24;
+  --signal: #22d3ee;
+  --purple: #a78bfa;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Inter Tight", system-ui, sans-serif; font-size: 16px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.dim { color: var(--dim); }
+.hidden { display: none !important; }
+
+.chrome { display: flex; align-items: center; gap: 14px; padding: 14px 22px; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; background: rgba(10,11,14,.92); backdrop-filter: blur(10px); }
+.brand { display: flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 13px; letter-spacing: 0.08em; }
+.brand small { color: var(--dim); margin-left: 8px; }
+.brand-mark { width: 22px; height: 22px; border-radius: 50%; background: conic-gradient(from -30deg, var(--accent), var(--signal), var(--accent)); position: relative; }
+.brand-mark::after { content: ""; position: absolute; inset: 5px; background: var(--bg); border-radius: 50%; }
+.spacer { flex: 1; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: var(--panel); font-size: 14px; cursor: pointer; }
+.btn:hover { background: var(--panel2); text-decoration: none; }
+.btn.go { background: var(--accent); border-color: var(--accent); color: #062014; font-weight: 700; }
+.btn.go:hover { background: #4ce6a8; }
+.btn.ghost { background: transparent; border-color: transparent; color: var(--dim); font-size: 22px; line-height: 1; padding: 4px 12px; }
+.avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--panel2); object-fit: cover; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 28px 22px 80px; }
+.hero h1 { font-size: 32px; letter-spacing: -0.01em; margin: 0 0 6px; }
+.hero p { margin: 0 0 24px; max-width: 640px; font-size: 15px; line-height: 1.5; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+.card {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  padding: 18px;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: border-color .12s, transform .12s;
+}
+.card:hover { border-color: var(--dimmer); transform: translateY(-1px); }
+.card h3 { margin: 0; font-size: 18px; font-weight: 700; }
+.card .subtitle { color: var(--dim); font-size: 13.5px; line-height: 1.4; flex: 1; }
+.card .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.card .actions a, .card .actions button { font-size: 13px; padding: 6px 12px; }
+.card .actions .ghost { background: transparent; border-color: var(--line); color: var(--ink-soft); }
+.card .actions .ghost:hover { border-color: var(--dimmer); }
+.card .pill { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+
+.readme {
+  margin-top: 28px; background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 22px;
+}
+.readme-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.readme-head h2 { margin: 0; font-size: 18px; }
+.readme-body { font-size: 14.5px; line-height: 1.55; }
+.readme-body h1, .readme-body h2, .readme-body h3 { font-weight: 700; letter-spacing: -0.01em; margin: 22px 0 10px; }
+.readme-body h1 { font-size: 22px; }
+.readme-body h2 { font-size: 18px; padding-bottom: 6px; border-bottom: 1px solid var(--line-soft); }
+.readme-body code { font-family: "JetBrains Mono", monospace; font-size: 12.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; }
+.readme-body pre { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; overflow-x: auto; }
+.readme-body pre code { background: transparent; border: 0; padding: 0; font-size: 12.5px; }
+.readme-body a { color: var(--signal); }
+.readme-body table { border-collapse: collapse; margin: 14px 0; }
+.readme-body th, .readme-body td { border: 1px solid var(--line); padding: 6px 12px; text-align: left; font-size: 13.5px; }
+.readme-body th { background: var(--panel); }
+
+.foot { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line); display: flex; gap: 10px; align-items: center; font-size: 13px; color: var(--dim); }
+
+/* Admin page */
+.admin-section { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 22px; margin-top: 18px; }
+.admin-section h2 { margin: 0 0 14px; font-size: 18px; }
+.grant-form { display: grid; grid-template-columns: 1fr 1fr auto auto; gap: 10px; margin-bottom: 22px; }
+.grant-form input, .grant-form select { padding: 8px 12px; background: var(--bg); border: 1px solid var(--line); color: var(--ink); border-radius: 6px; font-size: 14px; }
+.grant-form input:focus, .grant-form select:focus { outline: 0; border-color: var(--accent); }
+table.grants { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.grants th { text-align: left; padding: 10px 12px; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); border-bottom: 1px solid var(--line); }
+table.grants td { padding: 10px 12px; border-bottom: 1px solid var(--line-soft); }
+table.grants .login { font-weight: 600; }
+table.grants .role { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--accent); }
+table.grants button { background: transparent; border: 1px solid var(--line); color: var(--hot); padding: 4px 10px; border-radius: 5px; font-size: 12px; cursor: pointer; }
+table.grants button:hover { border-color: var(--hot); }

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Admin · tools.skenmy.com</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="chrome">
+  <div class="brand"><span class="brand-mark"></span><b>tools.skenmy.com</b><small>admin</small></div>
+  <div class="spacer"></div>
+  <a class="btn ghost" href="/">← back</a>
+</header>
+<main class="container">
+  <h1 style="font-size:28px;margin:0 0 8px">Admin · access grants</h1>
+  <p class="dim">Twitch logins listed here are allowed to reach the admin/operator surfaces of each app. Root admins (set in <code>ROOT_ADMIN_LOGINS</code> env var) can manage this list; the apps themselves call back to <code>/auth/verify</code> via Caddy's <code>forward_auth</code>.</p>
+
+  <section class="admin-section">
+    <h2>Grant access</h2>
+    <form id="grant-form" class="grant-form">
+      <input name="twitch_login" placeholder="twitch login (e.g. skenmy)" required autocomplete="off">
+      <select name="app" required></select>
+      <select name="role">
+        <option value="admin">admin</option>
+        <option value="operator">operator</option>
+        <option value="viewer">viewer</option>
+      </select>
+      <button class="btn go" type="submit">Grant</button>
+    </form>
+    <table class="grants">
+      <thead><tr><th>Twitch login</th><th>App</th><th>Role</th><th>Granted by</th><th>At</th><th></th></tr></thead>
+      <tbody id="grants-rows"></tbody>
+    </table>
+    <p id="grants-empty" class="dim hidden" style="margin-top:14px">No grants yet.</p>
+    <p id="grants-403"   class="dim hidden" style="margin-top:14px">You need to be signed in as a root admin to see grants.</p>
+  </section>
+</main>
+<script>
+async function load() {
+  const r = await fetch('/api/grants');
+  if (r.status === 401) { location.href = '/auth/twitch/login?redirect=/admin'; return; }
+  if (r.status === 403) { document.getElementById('grants-403').classList.remove('hidden'); return; }
+  const data = await r.json();
+  const tbody = document.getElementById('grants-rows');
+  tbody.innerHTML = data.grants.map(g => `
+    <tr>
+      <td class="login">${g.twitch_login}</td>
+      <td>${g.app}</td>
+      <td class="role">${g.role}</td>
+      <td class="dim">${g.granted_by}</td>
+      <td class="dim mono" style="font-size:12px">${g.granted_at}</td>
+      <td><button data-id="${g.id}">Revoke</button></td>
+    </tr>`).join('');
+  document.getElementById('grants-empty').classList.toggle('hidden', data.grants.length > 0);
+  const sel = document.querySelector('select[name="app"]');
+  sel.innerHTML = data.tools.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
+  tbody.onclick = async e => {
+    const b = e.target.closest('button[data-id]');
+    if (!b) return;
+    if (!confirm('Revoke this grant?')) return;
+    await fetch('/api/grants/' + b.dataset.id, { method: 'DELETE' });
+    load();
+  };
+}
+document.getElementById('grant-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(e.target));
+  const r = await fetch('/api/grants', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+  if (r.ok) { e.target.reset(); load(); } else { const t = await r.json(); alert('Failed: ' + (t.error || r.status)); }
+});
+load();
+</script>
+</body>
+</html>

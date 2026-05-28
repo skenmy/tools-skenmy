@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>tools.skenmy.com</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="chrome">
+  <div class="brand"><span class="brand-mark"></span><b>tools.skenmy.com</b><small>operator console</small></div>
+  <div class="spacer"></div>
+  <div id="user">
+    <a class="btn" href="/auth/twitch/login?redirect=/">Sign in with Twitch</a>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h1>Tools</h1>
+    <p class="dim">A directory of every app I run on skenmy.com — quick links to the public-facing surfaces, the operator/admin surfaces, and the docs.</p>
+  </section>
+
+  <div id="cards" class="cards"></div>
+
+  <section id="readme" class="readme hidden">
+    <div class="readme-head">
+      <h2 id="readme-title">README</h2>
+      <button class="btn ghost" id="readme-close" aria-label="Close">×</button>
+    </div>
+    <div id="readme-body" class="readme-body">Loading…</div>
+  </section>
+
+  <footer class="foot">
+    <a href="/admin">Admin · grant manager</a>
+    <span class="dim">·</span>
+    <a href="https://github.com/skenmy/skenmy-vps">infra (skenmy-vps)</a>
+  </footer>
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>
