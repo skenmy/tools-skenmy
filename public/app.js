@@ -3,10 +3,7 @@ const TOOLS = [
   { id: 'schedule',    name: 'Schedule Helper',   subtitle: 'Marathon schedule tracker (Oengus / Horaro) with operator sync.', primary: 'https://schedule.skenmy.com',   admin: null, repo: 'skenmy/schedule-helper' },
   { id: 'lowerthird',  name: 'ESA Lower Third',    subtitle: 'OBS overlay + control for ESA marathon streams.',                 primary: 'https://lowerthird.skenmy.com/source.html', admin: 'https://lowerthird.skenmy.com/control.html', repo: 'skenmy/esalowerthird' },
   { id: 'esaquiz',     name: 'ESA Quiz',           subtitle: 'Quiz overlay + control panel.',                                   primary: 'https://esaquiz.skenmy.com/source.html', admin: 'https://esaquiz.skenmy.com/control.html', repo: 'skenmy/esaquiz' },
-  { id: 'blockbuster', name: 'Blockbusters',       subtitle: 'Blockbusters game-show clone with multiplayer rooms.',           primary: 'https://blockbuster.skenmy.com', admin: null, repo: 'skenmy/blockbusters-game-challenges' },
-  { id: 'fares',       name: 'Fares Tracker',      subtitle: 'GWR fare drop tracker (Tue/Wed PAD↔OXF).',                       primary: 'https://fares.skenmy.com', admin: null, repo: 'skenmy/fares-tracker' },
-  { id: 'analytics',   name: 'Umami Analytics',    subtitle: 'Self-hosted privacy-friendly analytics for skenmy.com.',         primary: 'https://analytics.skenmy.com', admin: 'https://analytics.skenmy.com', repo: null },
-  { id: 'status',      name: 'Uptime Kuma',        subtitle: 'Public status page + monitoring dashboards.',                    primary: 'https://status.skenmy.com', admin: null, repo: 'skenmy/skenmy-vps' },
+  { id: 'blockbuster', name: 'Blockbusters',       subtitle: 'Blockbusters game-show clone with multiplayer rooms.',           primary: 'https://blockbuster.skenmy.com/display', admin: 'https://blockbuster.skenmy.com/control', repo: 'skenmy/blockbusters-game-challenges' },
 ];
 
 const cardsEl = document.getElementById('cards');
