@@ -179,8 +179,18 @@ app.get('/auth/twitch/callback', async (req, res) => {
 app.post('/auth/logout', (req, res) => { clearSessionCookie(res); res.redirect('/'); });
 app.get('/auth/me', (req, res) => {
   const u = currentUser(req);
-  if (!u) return res.json({ authenticated: false });
-  res.json({ authenticated: true, user: { login: u.login, display: u.display, avatar: u.avatar }, root: isRootAdmin(u) });
+  const app_ = String(req.query.app || '');
+  const role = String(req.query.role || 'admin');
+  if (!u) return res.json({ authenticated: false, canWrite: false, app: app_ || null, role });
+  const canWrite = !!app_ && (isRootAdmin(u) || hasGrant(u, app_, role));
+  res.json({
+    authenticated: true,
+    user: { login: u.login, display: u.display, avatar: u.avatar },
+    root: isRootAdmin(u),
+    canWrite,
+    app: app_ || null,
+    role,
+  });
 });
 
 // Forward-auth endpoint for Caddy `forward_auth tools-skenmy:3000 { uri /auth/verify?app=<id> }`
