@@ -19,6 +19,22 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// CORS so the embed.js auth pill (served from tools.skenmy.com) can be
+// loaded by sibling subdomains and call /auth/me with cookies attached.
+// Restrict to *.skenmy.com — credentials with wildcard is rejected by browsers.
+app.use((req, res, next) => {
+  const origin = req.headers.origin || '';
+  if (/^https:\/\/[a-z0-9-]+\.skenmy\.com$/.test(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  }
+  if (req.method === 'OPTIONS') return res.status(204).end();
+  next();
+});
+
 // ─── env / config ────────────────────────────────────────────────
 const PORT = parseInt(process.env.PORT || '3000', 10);
 const PUBLIC_ORIGIN = process.env.PUBLIC_ORIGIN || 'https://tools.skenmy.com';
