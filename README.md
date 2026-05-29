@@ -55,6 +55,28 @@ example.skenmy.com {
 Unauthenticated requests get a 401 with `X-Auth-Login-Url` pointing back
 at `tools.skenmy.com`'s Twitch login; the front-end can redirect.
 
+## Drop-in auth pill (`embed.js`)
+
+Any `*.skenmy.com` page can show a "who's signed in" pill in the top-right
+by including:
+
+```html
+<script src="https://tools.skenmy.com/embed.js"
+        data-app="lowerthird" data-role="admin"></script>
+```
+
+The script calls `GET /auth/me?app=<app>&role=<role>` with credentials,
+picks up the shared `.skenmy.com` session cookie via CORS (restricted to
+`https://*.skenmy.com` origins), and renders one of:
+
+- anonymous → dashed pill with a "Sign in with Twitch" link
+- authenticated, no grant → readonly pill (viewer chip)
+- authenticated + grant (or root admin) → write pill with avatar, display
+  name, role chip, and a `↗` link back to `tools.skenmy.com`
+
+`/auth/me` is read-only; it does not gate anything — use `forward_auth`
+against `/auth/verify` (above) for actual access control.
+
 ## Deploy
 
 This repo follows the standard pattern: CI builds and pushes
