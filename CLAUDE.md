@@ -17,10 +17,15 @@ Single-file Express app:
 ## Adding a tool
 
 Edit the `TOOLS` array near the top of `server/index.js`. Fields:
-`id, name, subtitle, primary, admin, repo`. The landing page reads this,
-the admin grant UI reads this (via `/api/grants`), and the README proxy
-fetches `https://raw.githubusercontent.com/<repo>/main/README.md` and
-caches the rendered HTML for 10 minutes.
+`id, name, subtitle, primary, admin, repo, public`. The landing page
+reads this, the admin grant UI reads it (via `/api/grants`), and the
+README proxy fetches `https://raw.githubusercontent.com/<repo>/main/README.md`
+and caches the rendered HTML for 10 minutes.
+
+`public: true` means the card renders for anonymous visitors; `false`
+means it only renders once the user is signed in. The same array is
+duplicated in `public/app.js` for client-side rendering — keep both in
+sync.
 
 That's it — no separate registry, no DB seeding.
 
