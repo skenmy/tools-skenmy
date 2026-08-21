@@ -1,16 +1,40 @@
 // Tools landing page client
+// Mirror of the TOOLS array in server/index.js — keep both in step.
 const TOOLS = [
-  { id: 'schedule',      name: 'Schedule Helper',   subtitle: 'Marathon schedule tracker (Oengus / Horaro) with operator sync.', primary: 'https://schedule.skenmy.com',                admin: null,                                            repo: 'skenmy/schedule-helper',              public: true },
-  { id: 'lowerthird',    name: 'ESA Lower Third',   subtitle: 'OBS overlay + control for ESA marathon streams.',                 primary: 'https://lowerthird.skenmy.com/source.html',  admin: 'https://lowerthird.skenmy.com/control.html',    repo: 'skenmy/esalowerthird',                public: true },
-  { id: 'esaquiz',       name: 'ESA Quiz',          subtitle: 'Quiz overlay + control panel.',                                   primary: 'https://esaquiz.skenmy.com/source.html',     admin: 'https://esaquiz.skenmy.com/control.html',       repo: 'skenmy/esaquiz',                      public: true },
-  { id: 'blockbuster',   name: 'Blockbusters',      subtitle: 'Blockbusters game-show clone with multiplayer rooms.',            primary: 'https://blockbuster.skenmy.com/display',     admin: 'https://blockbuster.skenmy.com/control',        repo: 'skenmy/blockbusters-game-challenges', public: true },
-  { id: 'url-shortener', name: 'URL Shortener',     subtitle: 'skenmy.com slug shortener with per-link stats.',                  primary: 'https://skenmy.com/admin',                   admin: null,                                            repo: 'skenmy/url-shortener',                public: false },
-  { id: 'notes',         name: 'Notes',             subtitle: 'Obsidian vault published via Quartz.',                            primary: 'https://skenmy.com/notes/',                  admin: null,                                            repo: 'skenmy/notes',                        public: false },
-  { id: 'fares',         name: 'Fares Tracker',     subtitle: 'Daily fare scrape for the Birmingham–Stafford commute.',          primary: 'https://fares.skenmy.com',                   admin: null,                                            repo: 'skenmy/fares-tracker',                public: false },
-  { id: 'analytics',     name: 'Umami',             subtitle: 'Self-hosted web analytics dashboard.',                            primary: 'https://analytics.skenmy.com',               admin: null,                                            repo: null,                                  public: false },
-  { id: 'status',        name: 'Uptime Kuma',       subtitle: 'Service uptime monitor (public status + tailnet admin).',         primary: 'https://status.skenmy.com',                  admin: 'https://status.ts.skenmy.com',                  repo: null,                                  public: false },
-  { id: 'dozzle',        name: 'Dozzle',            subtitle: 'Live container logs viewer (tailnet only).',                      primary: 'https://dozzle.ts.skenmy.com',               admin: null,                                            repo: null,                                  public: false },
-  { id: 'ntfy',          name: 'ntfy',              subtitle: 'Push notifications (tailnet only).',                              primary: 'https://notify.ts.skenmy.com',               admin: null,                                            repo: null,                                  public: false },
+  // ── Apps ──
+  { id: 'skenos', name: 'skenOS', subtitle: 'The desktop-OS portfolio at the apex, and DAEMON.', primary: 'https://skenmy.com', admin: null, repo: 'skenmy/skenos', public: true },
+  { id: 'daemon', name: 'DAEMON', subtitle: 'Bullet-hell terminal game with a server-verified leaderboard.', primary: 'https://daemon.skenmy.com', admin: null, repo: 'skenmy/skenos', public: true },
+  { id: 'notes', name: 'Notes', subtitle: 'Obsidian vault, rendered on the box and served as static pages.', primary: 'https://skenmy.com/notes/', admin: null, repo: 'skenmy/notes', public: true },
+  { id: 'gist', name: 'Opengist', subtitle: 'Code snippets — public to read, sign-in to write.', primary: 'https://gist.skenmy.com', admin: null, repo: null, public: true },
+  { id: 'zipline', name: 'Zipline', subtitle: 'File and screenshot host that mints short links.', primary: 'https://z.skenmy.com', admin: null, repo: null, public: false },
+  { id: 'ntfy', name: 'ntfy', subtitle: 'Push notifications — every alert on the box lands here.', primary: 'https://ntfy.skenmy.com', admin: null, repo: null, public: true },
+  { id: 'atuin', name: 'Atuin', subtitle: 'Encrypted shell-history sync; only ciphertext is stored.', primary: 'https://atuin.skenmy.com', admin: null, repo: null, public: false },
+
+  // ── Marathon tooling ──
+  { id: 'schedule', name: 'Schedule Helper', subtitle: 'Marathon schedule tracker (Oengus / Horaro) with operator sync.', primary: 'https://schedule.skenmy.com', admin: null, repo: 'skenmy/schedule-helper', public: true },
+  { id: 'lowerthird', name: 'ESA Lower Third', subtitle: 'OBS overlay + control for ESA marathon streams.', primary: 'https://lowerthird.skenmy.com/source.html', admin: 'https://lowerthird.skenmy.com/control.html', repo: 'skenmy/esalowerthird', public: true },
+  { id: 'esaquiz', name: 'ESA Quiz', subtitle: 'Quiz overlay + control panel.', primary: 'https://esaquiz.skenmy.com/source.html', admin: 'https://esaquiz.skenmy.com/control.html', repo: 'skenmy/esaquiz', public: true },
+  { id: 'blockbuster', name: 'Blockbusters', subtitle: 'Blockbusters game-show clone with multiplayer rooms.', primary: 'https://blockbuster.skenmy.com/display', admin: 'https://blockbuster.skenmy.com/control', repo: 'skenmy/blockbusters-game-challenges', public: true },
+
+  // ── Personal ──
+  { id: 'fares', name: 'Fares Tracker', subtitle: 'Daily fare scrape for the Birmingham–Stafford commute.', primary: 'https://fares.skenmy.com', admin: null, repo: 'skenmy/fares-tracker', public: false },
+  { id: 'rss', name: 'Miniflux', subtitle: 'RSS reader (tailnet only).', primary: 'https://rss.ts.skenmy.com', admin: null, repo: null, public: false },
+  { id: 'links', name: 'Linkding', subtitle: 'Bookmarks (tailnet only).', primary: 'https://links.ts.skenmy.com', admin: null, repo: null, public: false },
+  { id: 'watch', name: 'changedetection', subtitle: 'Watches pages for changes and pings ntfy (tailnet only).', primary: 'https://watch.ts.skenmy.com', admin: null, repo: null, public: false },
+  { id: 'ittools', name: 'IT-Tools', subtitle: 'Offline dev utility belt (tailnet only).', primary: 'https://tools.ts.skenmy.com', admin: null, repo: null, public: false },
+  { id: 'glance', name: 'Glance', subtitle: 'Dashboard, configured from the infra repo (tailnet only).', primary: 'https://home.ts.skenmy.com', admin: null, repo: null, public: false },
+  { id: 'code', name: 'code-server', subtitle: 'VS Code in the browser (tailnet only).', primary: 'https://code.ts.skenmy.com', admin: null, repo: null, public: false },
+
+  // ── Running the box ──
+  { id: 'url-shortener', name: 'URL Shortener', subtitle: 'skenmy.com slug shortener with per-link stats.', primary: 'https://skenmy.com/admin', admin: null, repo: 'skenmy/url-shortener', public: false },
+  { id: 'status', name: 'Status', subtitle: 'Public status page — Gatus, with checks declared in the infra repo.', primary: 'https://status.skenmy.com', admin: null, repo: 'skenmy/skenmy-vps', public: true },
+  { id: 'grafana', name: 'Grafana', subtitle: 'Metrics, dashboards and alert rules (tailnet only).', primary: 'https://grafana.ts.skenmy.com', admin: null, repo: null, public: false },
+  { id: 'logs', name: 'VictoriaLogs', subtitle: 'Searchable container logs, 30 days (tailnet only).', primary: 'https://logs.ts.skenmy.com', admin: null, repo: null, public: false },
+  { id: 'dozzle', name: 'Dozzle', subtitle: 'Live container log tail (tailnet only).', primary: 'https://dozzle.ts.skenmy.com', admin: null, repo: null, public: false },
+  { id: 'healthchecks', name: 'Healthchecks', subtitle: 'Dead-man\'s switch for backups and CI (tailnet only).', primary: 'https://healthchecks.ts.skenmy.com', admin: null, repo: null, public: false },
+  { id: 'git', name: 'Forgejo', subtitle: 'Local git mirror, so a GitHub outage can\'t stop a deploy (tailnet only).', primary: 'https://git.ts.skenmy.com', admin: null, repo: null, public: false },
+  { id: 'analytics', name: 'Umami', subtitle: 'Privacy-friendly web analytics.', primary: 'https://analytics.skenmy.com', admin: null, repo: null, public: false },
+  { id: 'infra', name: 'skenmy-vps', subtitle: 'The infrastructure repo — compose, Caddy, host state, backups.', primary: 'https://github.com/skenmy/skenmy-vps', admin: null, repo: 'skenmy/skenmy-vps', public: false },
 ];
 
 const cardsEl = document.getElementById('cards');
